@@ -129,18 +129,49 @@ section{position:relative;overflow:hidden}
 
 /* GALLERY */
 #gallery{padding:8rem 3rem;background:var(--black)}
-.g-grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:220px 220px;gap:.9rem}
-.g-item{position:relative;overflow:hidden;border-radius:8px;cursor:none;background:radial-gradient(ellipse at 40% 40%,#1a0a3a,#050510)}
-.g-item:nth-child(1){grid-row:span 2}
-.g-item:nth-child(4){grid-column:span 2;grid-row:3;height:200px}
-.g-item:nth-child(5),.g-item:nth-child(6){grid-row:3;height:200px}
-.g-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
-.g-stars{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 12% 22%,#fff,transparent),radial-gradient(1px 1px at 35% 65%,rgba(255,255,255,.7),transparent),radial-gradient(1px 1px at 55% 12%,#fff,transparent),radial-gradient(1px 1px at 72% 82%,rgba(255,255,255,.6),transparent),radial-gradient(1px 1px at 88% 44%,#fff,transparent),radial-gradient(2px 2px at 62% 35%,rgba(255,255,255,.4),transparent),radial-gradient(1px 1px at 18% 88%,rgba(255,255,255,.7),transparent);pointer-events:none}
-.g-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .4s}
-.g-icon{width:46px;height:46px;border:2px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;transform:scale(.5);transition:transform .4s}
-.g-item:hover .g-img{transform:scale(1.1)}
-.g-item:hover .g-overlay{opacity:1}
-.g-item:hover .g-icon{transform:scale(1)}
+.gal-frame-wrap{max-width:1100px;margin:0 auto}
+.gal-frame{position:relative;background:#000814;border:2px solid rgba(0,212,255,.28);box-shadow:0 0 0 1px rgba(138,43,226,.14),0 0 55px rgba(0,212,255,.12),0 0 110px rgba(138,43,226,.05);cursor:none;animation:framepulse 4s ease-in-out infinite}
+@keyframes framepulse{0%,100%{border-color:rgba(0,212,255,.28);box-shadow:0 0 0 1px rgba(138,43,226,.14),0 0 55px rgba(0,212,255,.12),0 0 110px rgba(138,43,226,.05)}50%{border-color:rgba(138,43,226,.52);box-shadow:0 0 0 1px rgba(138,43,226,.28),0 0 70px rgba(138,43,226,.18),0 0 140px rgba(0,212,255,.07)}}
+.gf-corner{position:absolute;width:52px;height:52px;z-index:15;pointer-events:none}
+.gf-tl{top:-3px;left:-3px;border-top:3px solid var(--blue);border-left:3px solid var(--blue)}
+.gf-tr{top:-3px;right:-3px;border-top:3px solid var(--blue);border-right:3px solid var(--blue)}
+.gf-bl{bottom:-3px;left:-3px;border-bottom:3px solid var(--blue);border-left:3px solid var(--blue)}
+.gf-br{bottom:-3px;right:-3px;border-bottom:3px solid var(--blue);border-right:3px solid var(--blue)}
+.gf-tl::after,.gf-tr::after,.gf-bl::after,.gf-br::after{content:'';position:absolute;width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 12px var(--blue),0 0 22px var(--blue)}
+.gf-tl::after{top:-3px;left:-3px}.gf-tr::after{top:-3px;right:-3px}.gf-bl::after{bottom:-3px;left:-3px}.gf-br::after{bottom:-3px;right:-3px}
+.gf-hud{position:absolute;font-family:'Orbitron',sans-serif;font-size:.57rem;letter-spacing:2px;color:rgba(0,212,255,.55);z-index:15;pointer-events:none;text-transform:uppercase;white-space:nowrap}
+.gf-hud-tl{top:.65rem;left:.9rem}.gf-hud-tr{top:.65rem;right:.9rem}.gf-hud-bl{bottom:.65rem;left:.9rem}.gf-hud-br{bottom:.65rem;right:.9rem}
+.gf-viewport{position:relative;height:520px;overflow:hidden;background:#000}
+.gf-scan{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(0,212,255,.6),transparent);z-index:12;animation:gfscan 5s linear infinite;pointer-events:none}
+@keyframes gfscan{0%{top:0;opacity:.9}95%{opacity:.3}100%{top:100%;opacity:0}}
+.gf-slides{position:absolute;inset:0}
+.gf-slide{position:absolute;inset:0;opacity:0;transition:opacity .9s}
+.gf-slide.active{opacity:1}
+.gf-parallax-wrap{position:absolute;inset:-6%;will-change:transform}
+.gf-slide-img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.07);transition:transform 9s ease}
+.gf-slide.active .gf-slide-img{transform:scale(1)}
+.gf-overlay-info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.8) 55%);padding:3.5rem 2rem 1.5rem;transform:translateY(100%);transition:transform .45s ease;z-index:8;pointer-events:none}
+.gal-frame:hover .gf-overlay-info{transform:translateY(0)}
+.gf-info-title{font-family:'Orbitron',sans-serif;font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.3rem;letter-spacing:1px}
+.gf-info-sub{font-size:.72rem;color:rgba(0,212,255,.85);letter-spacing:3px;text-transform:uppercase}
+.gf-progress{position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--purple));z-index:13;transition:width .5s ease;box-shadow:0 0 8px var(--blue)}
+.gf-prev,.gf-next{position:absolute;top:50%;transform:translateY(-50%);width:50px;height:50px;background:rgba(0,0,0,.52);border:1px solid rgba(0,212,255,.32);color:rgba(255,255,255,.78);font-size:1.9rem;line-height:1;cursor:none;z-index:16;display:flex;align-items:center;justify-content:center;transition:all .3s;backdrop-filter:blur(4px)}
+.gf-prev{left:1rem}.gf-next{right:1rem}
+.gf-prev:hover,.gf-next:hover{background:rgba(0,212,255,.18);border-color:var(--blue);color:#fff;box-shadow:0 0 22px rgba(0,212,255,.3)}
+.gf-zoom{position:absolute;top:.9rem;right:.9rem;width:36px;height:36px;background:rgba(0,0,0,.5);border:1px solid rgba(138,43,226,.42);color:rgba(255,255,255,.72);font-size:1rem;cursor:none;z-index:16;display:flex;align-items:center;justify-content:center;transition:all .3s;backdrop-filter:blur(4px);border-radius:4px}
+.gf-zoom:hover{background:rgba(138,43,226,.24);border-color:var(--purple);color:#fff;box-shadow:0 0 20px rgba(138,43,226,.32)}
+.gf-ripple{position:absolute;border-radius:50%;background:rgba(0,212,255,.22);pointer-events:none;transform:scale(0);animation:gf-rip .7s ease-out forwards;z-index:20}
+@keyframes gf-rip{to{transform:scale(5);opacity:0}}
+.gf-thumbs{display:flex;gap:.65rem;margin-top:.75rem;justify-content:center;flex-wrap:wrap}
+.gf-thumb{width:82px;height:54px;border:2px solid rgba(0,212,255,.15);border-radius:4px;overflow:hidden;cursor:none;transition:all .3s;flex-shrink:0;position:relative}
+.gf-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.gf-thumb:hover{border-color:rgba(0,212,255,.52);box-shadow:0 0 14px rgba(0,212,255,.22)}
+.gf-thumb:hover img{transform:scale(1.12)}
+.gf-thumb.active{border-color:var(--blue);box-shadow:0 0 15px rgba(0,212,255,.38)}
+.gf-thumb.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--blue);box-shadow:0 0 6px var(--blue)}
+.gf-dots{display:flex;gap:.55rem;justify-content:center;margin-top:.65rem}
+.gf-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.18);cursor:none;transition:all .3s}
+.gf-dot.active{background:var(--blue);box-shadow:0 0 8px var(--blue);transform:scale(1.5)}
 
 /* LIGHTBOX */
 #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:9990;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
@@ -179,7 +210,7 @@ footer span{color:var(--blue)}
   .hero-planet{width:200px;height:200px}.planet-ring{width:290px;height:55px}
   #about{padding:5rem 1.5rem}.about-grid{grid-template-columns:1fr;gap:2rem}.about-vis{height:220px}
   #planets{padding:5rem 1.5rem}
-  .g-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}.g-item:nth-child(1){grid-row:auto}.g-item:nth-child(4){grid-column:auto;grid-row:auto;height:160px}.g-item:nth-child(5),.g-item:nth-child(6){grid-row:auto;height:160px}.g-item{height:160px}
+  #gallery{padding:5rem 1.5rem}.gf-viewport{height:260px}.gf-hud-tl,.gf-hud-br{display:none}.gf-thumb{width:56px;height:38px}.gf-prev,.gf-next{width:38px;height:38px;font-size:1.4rem}
   #contact{padding:5rem 1.5rem}
 }
 </style>
@@ -315,13 +346,31 @@ footer span{color:var(--blue)}
 <section id="gallery">
   <h2 class="sec-title reveal">Space Gallery</h2>
   <div class="sec-line reveal"></div>
-  <div class="g-grid">
-    <div class="g-item" data-i="0" data-src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80"><img class="g-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80" alt="Earth from Space"><div class="g-overlay"><div class="g-icon">+</div></div></div>
-    <div class="g-item" data-i="1" data-src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1200&q=80"><img class="g-img" src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1200&q=80" alt="Galaxy"><div class="g-overlay"><div class="g-icon">+</div></div></div>
-    <div class="g-item" data-i="2" data-src="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&w=1200&q=80"><img class="g-img" src="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&w=1200&q=80" alt="Starfield"><div class="g-overlay"><div class="g-icon">+</div></div></div>
-    <div class="g-item" data-i="3" data-src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?auto=format&fit=crop&w=1200&q=80"><img class="g-img" src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?auto=format&fit=crop&w=1200&q=80" alt="Moon Surface"><div class="g-overlay"><div class="g-icon">+</div></div></div>
-    <div class="g-item" data-i="4" data-src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1200&q=80"><img class="g-img" src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1200&q=80" alt="Deep Space"><div class="g-overlay"><div class="g-icon">+</div></div></div>
-    <div class="g-item" data-i="5" data-src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=1200&q=80"><img class="g-img" src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=1200&q=80" alt="Cosmos"><div class="g-overlay"><div class="g-icon">+</div></div></div>
+  <div class="gal-frame-wrap reveal">
+    <div class="gal-frame" id="galFrame">
+      <div class="gf-corner gf-tl"></div>
+      <div class="gf-corner gf-tr"></div>
+      <div class="gf-corner gf-bl"></div>
+      <div class="gf-corner gf-br"></div>
+      <div class="gf-hud gf-hud-tl">GALACTIC ODYSSEY · DEEP FIELD VIEWER</div>
+      <div class="gf-hud gf-hud-tr" id="gfCounter">01 / 06</div>
+      <div class="gf-hud gf-hud-bl" id="gfStatus">● LIVE FEED</div>
+      <div class="gf-hud gf-hud-br">UTC 2026.04.21</div>
+      <div class="gf-viewport" id="gfViewport">
+        <div class="gf-scan"></div>
+        <div class="gf-slides" id="gfSlides"></div>
+        <div class="gf-overlay-info" id="gfInfo">
+          <div class="gf-info-title" id="gfTitle">Earth from Space</div>
+          <div class="gf-info-sub" id="gfSub">Blue Marble · ISS Orbit 400km</div>
+        </div>
+        <div class="gf-progress" id="gfProgress" style="width:16.6%"></div>
+      </div>
+      <button class="gf-prev" id="gfPrev">&#8249;</button>
+      <button class="gf-next" id="gfNext">&#8250;</button>
+      <button class="gf-zoom" id="gfZoom" title="Expand">&#8853;</button>
+    </div>
+    <div class="gf-thumbs" id="gfThumbs"></div>
+    <div class="gf-dots" id="gfDots"></div>
   </div>
 </section>
 
@@ -490,21 +539,151 @@ document.querySelectorAll('.pcard').forEach(card=>{
   (function draw(){ctx.clearRect(0,0,c.width,c.height);s.forEach(st=>{st.o+=st.sp;if(st.o>.7||st.o<.1)st.sp*=-1;ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${st.o})`;ctx.fill()});requestAnimationFrame(draw)})();
 })();
 
-// ── LIGHTBOX ──
+// ── GALLERY + LIGHTBOX ──
 (()=>{
-  const lb=document.getElementById('lightbox');
-  const vis=document.getElementById('lb-vis');
-  document.querySelectorAll('.g-item').forEach(it=>{
-    it.addEventListener('click',()=>{
-      vis.src=it.dataset.src;
-      vis.alt=it.querySelector('.g-img').alt;
-      lb.classList.add('on');document.body.style.overflow='hidden';
+  const images=[
+    {src:'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80',title:'Earth from Space',sub:'Blue Marble · ISS Orbit 400km'},
+    {src:'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1920&q=80',title:'Andromeda Galaxy',sub:'Spiral Galaxy · 2.537M Light Years'},
+    {src:'https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&w=1920&q=80',title:'Stellar Nursery',sub:'Star Formation · Deep Field'},
+    {src:'https://images.unsplash.com/photo-1614732414444-096e5f1122d5?auto=format&fit=crop&w=1920&q=80',title:'Lunar Surface',sub:'Crater Landscape · Moon'},
+    {src:'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1920&q=80',title:'Deep Space',sub:'Cosmic Void · Hubble Ultra Deep Field'},
+    {src:'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=1920&q=80',title:'The Cosmos',sub:'Nebula Cloud · Milky Way Core'}
+  ];
+  let cur=0,autoTimer,busy=false;
+  const frame=document.getElementById('galFrame');
+  const viewport=document.getElementById('gfViewport');
+  const slidesEl=document.getElementById('gfSlides');
+  const counter=document.getElementById('gfCounter');
+  const titleEl=document.getElementById('gfTitle');
+  const subEl=document.getElementById('gfSub');
+  const prog=document.getElementById('gfProgress');
+  const thumbsEl=document.getElementById('gfThumbs');
+  const dotsEl=document.getElementById('gfDots');
+  const status=document.getElementById('gfStatus');
+
+  // Build slides
+  images.forEach((img,i)=>{
+    const slide=document.createElement('div');
+    slide.className='gf-slide'+(i===0?' active':'');
+    const wrap=document.createElement('div');
+    wrap.className='gf-parallax-wrap';
+    const im=document.createElement('img');
+    im.src=img.src;im.alt=img.title;im.className='gf-slide-img';
+    wrap.appendChild(im);slide.appendChild(wrap);slidesEl.appendChild(slide);
+  });
+
+  // Build thumbnails
+  images.forEach((img,i)=>{
+    const th=document.createElement('div');
+    th.className='gf-thumb'+(i===0?' active':'');
+    const im=document.createElement('img');
+    im.src=img.src.replace('w=1920','w=200');im.alt=img.title;
+    th.appendChild(im);th.addEventListener('click',()=>goTo(i));
+    thumbsEl.appendChild(th);
+  });
+
+  // Build dots
+  images.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='gf-dot'+(i===0?' active':'');
+    d.addEventListener('click',()=>goTo(i));
+    dotsEl.appendChild(d);
+  });
+
+  // Extend cursor hover to gallery controls
+  const c=document.getElementById('cursor');
+  document.querySelectorAll('.gf-thumb,.gf-dot').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{c.style.width='34px';c.style.height='34px'});
+    el.addEventListener('mouseleave',()=>{c.style.width='20px';c.style.height='20px'});
+  });
+
+  function updateUI(){
+    counter.textContent=String(cur+1).padStart(2,'0')+' / 0'+images.length;
+    titleEl.textContent=images[cur].title;
+    subEl.textContent=images[cur].sub;
+    prog.style.width=((cur+1)/images.length*100)+'%';
+    document.querySelectorAll('.gf-thumb').forEach((t,i)=>t.classList.toggle('active',i===cur));
+    document.querySelectorAll('.gf-dot').forEach((d,i)=>d.classList.toggle('active',i===cur));
+  }
+
+  function goTo(idx){
+    if(busy)return;busy=true;
+    const slides=document.querySelectorAll('.gf-slide');
+    slides[cur].classList.remove('active');
+    cur=((idx%images.length)+images.length)%images.length;
+    slides[cur].classList.add('active');
+    updateUI();
+    setTimeout(()=>busy=false,950);
+    resetAuto();
+    status.textContent='● SCANNING...';
+    setTimeout(()=>status.textContent='● LIVE FEED',1300);
+  }
+  function next(){goTo(cur+1)}
+  function prev(){goTo(cur-1)}
+
+  document.getElementById('gfNext').addEventListener('click',e=>{e.stopPropagation();next()});
+  document.getElementById('gfPrev').addEventListener('click',e=>{e.stopPropagation();prev()});
+
+  function startAuto(){autoTimer=setInterval(next,5500)}
+  function resetAuto(){clearInterval(autoTimer);startAuto()}
+  startAuto();
+  frame.addEventListener('mouseenter',()=>clearInterval(autoTimer));
+  frame.addEventListener('mouseleave',startAuto);
+
+  // Keyboard navigation (arrow keys)
+  document.addEventListener('keydown',e=>{
+    if(document.getElementById('lightbox').classList.contains('on'))return;
+    if(e.key==='ArrowRight')next();
+    if(e.key==='ArrowLeft')prev();
+  });
+
+  // Mouse parallax on the active slide
+  frame.addEventListener('mousemove',e=>{
+    const r=viewport.getBoundingClientRect();
+    const dx=(e.clientX-r.left-r.width/2)/(r.width/2);
+    const dy=(e.clientY-r.top-r.height/2)/(r.height/2);
+    const wrap=document.querySelector('.gf-slide.active .gf-parallax-wrap');
+    if(wrap)wrap.style.transform=`translate(${dx*-15}px,${dy*-9}px)`;
+  });
+  frame.addEventListener('mouseleave',()=>{
+    document.querySelectorAll('.gf-parallax-wrap').forEach(w=>{
+      w.style.transition='transform .9s ease';w.style.transform='';
+      setTimeout(()=>w.style.transition='',1000);
     });
   });
-  function close(){lb.classList.remove('on');document.body.style.overflow=''}
-  document.getElementById('lb-close').addEventListener('click',close);
-  lb.addEventListener('click',e=>{if(e.target===lb)close()});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+
+  // Ripple on viewport click
+  viewport.addEventListener('click',e=>{
+    const r=viewport.getBoundingClientRect();
+    const rip=document.createElement('div');
+    const sz=70;rip.className='gf-ripple';
+    rip.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX-r.left-sz/2}px;top:${e.clientY-r.top-sz/2}px`;
+    viewport.appendChild(rip);setTimeout(()=>rip.remove(),750);
+  });
+
+  // Zoom opens lightbox
+  document.getElementById('gfZoom').addEventListener('click',e=>{
+    e.stopPropagation();
+    const lb=document.getElementById('lightbox');
+    document.getElementById('lb-vis').src=images[cur].src;
+    document.getElementById('lb-vis').alt=images[cur].title;
+    lb.classList.add('on');document.body.style.overflow='hidden';
+  });
+
+  // Touch swipe support
+  let ts=0;
+  viewport.addEventListener('touchstart',e=>{ts=e.touches[0].clientX},{passive:true});
+  viewport.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-ts;
+    if(Math.abs(dx)>50){dx>0?prev():next()}
+  },{passive:true});
+
+  // Lightbox close
+  const lb=document.getElementById('lightbox');
+  function closeLb(){lb.classList.remove('on');document.body.style.overflow=''}
+  document.getElementById('lb-close').addEventListener('click',closeLb);
+  lb.addEventListener('click',e=>{if(e.target===lb)closeLb()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb()});
 })();
 
 // ── PARALLAX ──
@@ -518,3 +697,4 @@ window.addEventListener('scroll',()=>{
 </script>
 </body>
 </html>
+
